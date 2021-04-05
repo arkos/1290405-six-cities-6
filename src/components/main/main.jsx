@@ -1,9 +1,11 @@
 import React from 'react';
 import OfferCard from '../offer-card/offer-card';
+import PropTypes from 'prop-types';
 
-const Main = () => {
+const Main = (props) => {
+  const {offersCount} = props;
 
-  const mockOffers = new Array(5).fill(null);
+  const mockOffers = new Array(offersCount).fill(null);
 
   return (
     <div className="page page--gray page--main">
@@ -100,6 +102,10 @@ const Main = () => {
       </main>
     </div>
   );
+};
+
+Main.propTypes = {
+  offersCount: PropTypes.number.isRequired
 };
 
 export default Main;
