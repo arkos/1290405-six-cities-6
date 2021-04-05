@@ -6,6 +6,7 @@ import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
+import NotFound from '../not-found/not-found';
 
 const App = ({offersCount}) => {
   return (
@@ -22,6 +23,9 @@ const App = ({offersCount}) => {
         </Route>
         <Route exact path={getOfferUrl(`:id`)}>
           <Room />
+        </Route>
+        <Route>
+          <NotFound />
         </Route>
       </Switch>
     </BrowserRouter>
