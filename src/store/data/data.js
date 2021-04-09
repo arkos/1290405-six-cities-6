@@ -15,6 +15,6 @@ const data = createSlice({
 });
 
 const {loadOffers} = data.actions;
+const {reducer} = data;
 
-export {loadOffers};
-export default data;
+export {loadOffers, reducer as data};
