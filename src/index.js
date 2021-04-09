@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
 import rootReducer from './store/root-reducer';
 import {configureStore} from '@reduxjs/toolkit';
 import App from "./components/app/app";
@@ -11,6 +12,8 @@ const store = configureStore({
 });
 
 ReactDOM.render(
-    <App offersCount={OFFERS_COUNT} />,
+    <Provider store={store}>
+      <App offersCount={OFFERS_COUNT} />,
+    </Provider>,
     document.querySelector(`#root`)
 );
