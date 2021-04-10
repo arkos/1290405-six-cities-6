@@ -5,4 +5,8 @@ export const AppRoute = {
   ROOM: `/offer`
 };
 
+export const APIRoute = {
+  OFFERS: `/hotels`
+};
+
 export const getOfferUrl = (id) => `${AppRoute.ROOM}/${id}`;
