@@ -4,3 +4,7 @@ export const StoreStatus = {
   SUCCEEDED: `SUCCEEDED`,
   FAILED: `FAILED`
 };
+
+export const ActionType = {
+  FETCH_OFFERS: `data/fetchOffers`
+};
