@@ -1,4 +1,4 @@
-import {ActionType} from '../store/const';
+import {ActionType} from '../util/const';
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {APIRoute} from '../util/route';
 
