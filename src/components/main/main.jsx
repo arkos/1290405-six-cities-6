@@ -1,11 +1,24 @@
-import React from 'react';
-import OfferCard from '../offer-card/offer-card';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+import {StoreStatus} from '../../util/const';
+import {fetchOffers} from '../../store/api-actions';
+import {useDispatch, useSelector} from 'react-redux';
+import OfferCard from '../offer-card/offer-card';
 
 const Main = (props) => {
   const {offersCount} = props;
 
   const mockOffers = new Array(offersCount).fill(null);
+
+  const dispatch = useDispatch();
+
+  const loadingStatus = useSelector((state) => state.DATA.status);
+
+  useEffect(() => {
+    if (loadingStatus === StoreStatus.IDLE) {
+      dispatch(fetchOffers());
+    }
+  }, [loadingStatus, dispatch]);
 
   return (
     <div className="page page--gray page--main">
