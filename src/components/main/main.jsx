@@ -107,7 +107,7 @@ const Main = () => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((_, index) => <OfferCard key={index} />)}
+                {offers.map((offer) => <OfferCard key={offer.id} offer={offer} />)}
               </div>
             </section>
             <div className="cities__right-section">
