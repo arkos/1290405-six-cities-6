@@ -4,11 +4,10 @@ import {StoreStatus} from '../../util/const';
 import {fetchOffers} from '../../store/api-actions';
 import {useDispatch, useSelector} from 'react-redux';
 import OfferCard from '../offer-card/offer-card';
+import {selectOffersByLimit} from '../../store/selectors';
 
-const Main = (props) => {
-  const {offersCount} = props;
-
-  const mockOffers = new Array(offersCount).fill(null);
+const Main = () => {
+  const offers = useSelector(selectOffersByLimit);
 
   const dispatch = useDispatch();
 
@@ -19,6 +18,10 @@ const Main = (props) => {
       dispatch(fetchOffers());
     }
   }, [loadingStatus, dispatch]);
+
+  if (loadingStatus === StoreStatus.LOADING) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -104,7 +107,7 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {mockOffers.map((_, index) => <OfferCard key={index} />)}
+                {offers.map((_, index) => <OfferCard key={index} />)}
               </div>
             </section>
             <div className="cities__right-section">
