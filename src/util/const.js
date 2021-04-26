@@ -8,3 +8,5 @@ export const StoreStatus = {
 export const ActionType = {
   FETCH_OFFERS: `data/fetchOffers`
 };
+
+export const MAX_OFFERS_COUNT = 8;
