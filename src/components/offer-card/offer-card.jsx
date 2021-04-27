@@ -1,5 +1,6 @@
 import React from 'react';
 import {getRoomName} from '../../util/common';
+import offerCardProp from './offer-card.prop';
 
 const MAX_STARS_COUNT = 5;
 
@@ -46,6 +47,10 @@ const OfferCard = ({offer}) => {
       </div>
     </article>
   );
+};
+
+OfferCard.propTypes = {
+  offer: offerCardProp
 };
 
 export default OfferCard;
