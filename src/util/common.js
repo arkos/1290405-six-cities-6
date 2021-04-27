@@ -1,4 +1,4 @@
-const roomTypeToNameMap = {
+export const roomTypeToNameMap = {
   [`apartment`]: `Apartment`,
   [`room`]: `Private Room`,
   [`house`]: `House`,
