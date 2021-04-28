@@ -5,6 +5,7 @@ import {fetchOffers} from '../../store/api-actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectOffersByLimit} from '../../store/selectors';
 import OfferList from '../offer-list/offer-list';
+import Loading from '../loading/loading';
 
 const Main = () => {
   const offers = useSelector(selectOffersByLimit);
@@ -20,7 +21,7 @@ const Main = () => {
   }, [loadingStatus, dispatch]);
 
   if (loadingStatus === StoreStatus.LOADING) {
-    return <div>Loading...</div>;
+    return <Loading title={`Loading accomodations ...`}/>;
   }
 
   return (
