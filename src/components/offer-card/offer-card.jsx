@@ -1,6 +1,6 @@
 import React from 'react';
 import {getRoomName} from '../../util/common';
-import offerCardProp from './offer-card.prop';
+import offerProp from './offer.prop';
 
 const MAX_STARS_COUNT = 5;
 
@@ -50,7 +50,7 @@ const OfferCard = ({offer}) => {
 };
 
 OfferCard.propTypes = {
-  offer: offerCardProp
+  offer: offerProp
 };
 
 export default OfferCard;
