@@ -1,12 +1,13 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, createEntityAdapter} from '@reduxjs/toolkit';
 import {StoreStatus} from '../../util/const';
 import {fetchOffers} from '../api-actions';
 
-const initialState = {
-  offers: [],
+const adapter = createEntityAdapter();
+
+const initialState = adapter.getInitialState({
   status: StoreStatus.IDLE,
   error: null
-};
+});
 
 const data = createSlice({
   name: `data`,
@@ -18,7 +19,7 @@ const data = createSlice({
     },
     [fetchOffers.fulfilled]: (state, action) => {
       state.status = StoreStatus.SUCCEEDED;
-      state.offers = action.payload;
+      adapter.upsertMany(state, action.payload);
     },
     [fetchOffers.rejected]: (state, action) => {
       state.status = StoreStatus.FAILED;
@@ -28,5 +29,6 @@ const data = createSlice({
 });
 
 const {reducer} = data;
+const {selectAll: selectAllOffers} = adapter.getSelectors((state) => state.DATA);
 
-export {reducer as data};
+export {reducer as data, selectAllOffers};
