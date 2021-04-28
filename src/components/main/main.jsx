@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {StoreStatus} from '../../util/const';
-import {fetchOffers} from '../../store/api-actions';
+import {fetchFavorites, fetchOffers} from '../../store/api-actions';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectOffersByLimit} from '../../store/selectors';
+import {selectFavoritesStatus, selectOffersByLimit, selectOffersStatus} from '../../store/selectors';
 import OfferList from '../offer-list/offer-list';
 import Loading from '../loading/loading';
 
@@ -12,16 +12,28 @@ const Main = () => {
 
   const dispatch = useDispatch();
 
-  const loadingStatus = useSelector((state) => state.DATA.status);
+  const offersLoadingState = useSelector((state) => selectOffersStatus(state));
+
+  const favoritesLoadingState = useSelector((state) => selectFavoritesStatus(state));
 
   useEffect(() => {
-    if (loadingStatus === StoreStatus.IDLE) {
+    if (offersLoadingState.status === StoreStatus.IDLE) {
       dispatch(fetchOffers());
     }
-  }, [loadingStatus, dispatch]);
+  }, [offersLoadingState, dispatch]);
 
-  if (loadingStatus === StoreStatus.LOADING) {
+  useEffect(() => {
+    if (favoritesLoadingState.status === StoreStatus.IDLE && offersLoadingState.status === StoreStatus.SUCCEEDED) {
+      dispatch(fetchFavorites());
+    }
+  }, [favoritesLoadingState, offersLoadingState, dispatch]);
+
+  if (offersLoadingState.status === StoreStatus.LOADING) {
     return <Loading title={`Loading accomodations ...`}/>;
+  }
+
+  if (favoritesLoadingState.status === StoreStatus.LOADING) {
+    return <Loading title={`Loading favorites ...`}/>;
   }
 
   return (
