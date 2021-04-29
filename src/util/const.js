@@ -7,7 +7,13 @@ export const StoreStatus = {
 
 export const ActionType = {
   FETCH_OFFERS: `data/fetchOffers`,
-  FETCH_FAVORITES: `data/fetchFavorites`
+  FETCH_FAVORITES: `data/fetchFavorites`,
+  CHECK_AUTH: `user/checkAuth`
+};
+
+export const AuthorizationStatus = {
+  NO_AUTH: `NO_AUTH`,
+  AUTH: `AUTH`
 };
 
 export const MAX_OFFERS_COUNT = 8;
