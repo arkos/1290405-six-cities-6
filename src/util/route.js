@@ -7,7 +7,8 @@ export const AppRoute = {
 
 export const APIRoute = {
   OFFERS: `/hotels`,
-  FAVORITES: `/favorite`
+  FAVORITES: `/favorite`,
+  LOGIN: `/login`
 };
 
 export const getOfferUrl = (id) => `${AppRoute.ROOM}/${id}`;
