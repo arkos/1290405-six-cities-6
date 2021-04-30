@@ -5,10 +5,15 @@ import rootReducer from './store/root-reducer';
 import {configureStore} from '@reduxjs/toolkit';
 import {createAPI} from './services/api';
 import App from "./components/app/app";
+import {setAuthorization} from './store/user/user';
+import {AuthorizationStatus} from './util/const';
+import {checkAuth} from './store/api-actions';
 
 const OFFERS_COUNT = 2;
 
-const api = createAPI();
+const api = createAPI(
+    () => store.dispatch(setAuthorization(AuthorizationStatus.NO_AUTH))
+);
 
 const store = configureStore({
   reducer: rootReducer,
@@ -19,6 +24,8 @@ const store = configureStore({
       }
     })
 });
+
+store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
