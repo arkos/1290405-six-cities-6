@@ -1,6 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {login} from '../../store/api-actions';
 
 const SignIn = () => {
+  const dispatch = useDispatch();
+
+  const [userForm, setUserForm] = useState({
+    email: ``,
+    password: ``
+  });
+
+  const handleFormSubmit = (evt) => {
+    evt.preventDefault();
+
+    if (userForm.email === null || userForm.password === null) {
+      return;
+    }
+
+    dispatch(login({login: userForm.email, password: userForm.password}));
+  };
+
+  const handleInputChange = (evt) => {
+    evt.preventDefault();
+
+    setUserForm({...userForm, [evt.target.name]: evt.target.value});
+  };
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -33,13 +58,13 @@ const SignIn = () => {
             <form className="login__form form" action="#" method="post">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" />
+                <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" onChange={handleInputChange}/>
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" />
+                <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" onChange={handleInputChange}/>
               </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              <button className="login__submit form__submit button" type="submit" onClick={handleFormSubmit}>Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
