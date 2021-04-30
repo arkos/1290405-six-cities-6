@@ -1,13 +1,18 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {AuthorizationStatus, StoreStatus} from "../../util/const";
-import {checkAuth} from '../api-actions';
+import {checkAuth, login} from '../api-actions';
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   authLoadingState: {
     status: StoreStatus.IDLE,
     error: null
-  }
+  },
+  loginLoadingState: {
+    status: StoreStatus.IDLE,
+    error: null
+  },
+  user: null
 };
 
 const user = createSlice({
@@ -29,6 +34,19 @@ const user = createSlice({
     [checkAuth.rejected]: (state, action) => {
       state.authLoadingState.status = StoreStatus.FAILED;
       state.authLoadingState.error = action.error.message;
+    },
+    [login.pending]: (state) => {
+      state.loginLoadingState.status = StoreStatus.LOADING;
+    },
+    [login.fulfilled]: (state, action) => {
+      state.loginLoadingState.status = StoreStatus.SUCCEEDED;
+      state.authorizationStatus = AuthorizationStatus.AUTH;
+      state.user = action.payload;
+    },
+    [login.rejected]: (state, action) => {
+      state.loginLoadingState.status = StoreStatus.FAILED;
+      state.authorizationStatus = AuthorizationStatus.NO_AUTH;
+      state.loginLoadingState.error = action.error.message;
     }
   }
 });

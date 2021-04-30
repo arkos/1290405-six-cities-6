@@ -17,3 +17,10 @@ export const checkAuth = createAsyncThunk(ActionType.CHECK_AUTH, async (_, {extr
   const response = await api.get(APIRoute.LOGIN);
   return response.data;
 });
+
+export const login = createAsyncThunk(ActionType.LOGIN, async (_, action, {extra: api}) => {
+  const {login: email, password} = action.payload;
+
+  const response = await api.post(APIRoute.LOGIN, {email, password});
+  return response.data;
+});
