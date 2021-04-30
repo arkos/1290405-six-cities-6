@@ -18,8 +18,8 @@ export const checkAuth = createAsyncThunk(ActionType.CHECK_AUTH, async (_, {extr
   return response.data;
 });
 
-export const login = createAsyncThunk(ActionType.LOGIN, async (_, action, {extra: api}) => {
-  const {login: email, password} = action.payload;
+export const login = createAsyncThunk(ActionType.LOGIN, async (payload, {extra: api}) => {
+  const {login: email, password} = payload;
 
   const response = await api.post(APIRoute.LOGIN, {email, password});
   return response.data;
