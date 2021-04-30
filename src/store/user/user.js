@@ -13,7 +13,11 @@ const initialState = {
 const user = createSlice({
   name: `user`,
   initialState,
-  reducers: {},
+  reducers: {
+    setAuthorization: (state, action) => {
+      state.authorizationStatus = action.payload;
+    }
+  },
   extraReducers: {
     [checkAuth.pending]: (state) => {
       state.authLoadingState.status = StoreStatus.LOADING;
@@ -24,11 +28,12 @@ const user = createSlice({
     },
     [checkAuth.rejected]: (state, action) => {
       state.authLoadingState.status = StoreStatus.FAILED;
-      state.authorizationStatus.error = action.error.message;
+      state.authLoadingState.error = action.error.message;
     }
   }
 });
 
 const {reducer} = user;
+const {setAuthorization} = user.actions;
 
-export {reducer as user};
+export {reducer as user, setAuthorization};
