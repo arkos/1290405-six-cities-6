@@ -9,7 +9,8 @@ export const ActionType = {
   FETCH_OFFERS: `data/fetchOffers`,
   FETCH_FAVORITES: `data/fetchFavorites`,
   CHECK_AUTH: `user/checkAuth`,
-  LOGIN: `user/login`
+  LOGIN: `user/login`,
+  REDIRECT_TO_ROUTE: `route/redirectToRoute`
 };
 
 export const AuthorizationStatus = {
