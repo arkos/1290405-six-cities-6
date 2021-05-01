@@ -29,5 +29,14 @@ export const adaptOfferToClient = (offer) => {
   delete adaptedOffer.host.avatar_url;
 
   return adaptedOffer;
+};
 
+export const adaptUserToClient = (user) => {
+  const adaptedUser = Object.assign({}, user, {
+    isPro: user.is_pro
+  });
+
+  delete adaptedUser.is_pro;
+
+  return adaptedUser;
 };

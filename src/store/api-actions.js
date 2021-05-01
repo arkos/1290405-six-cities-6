@@ -1,7 +1,7 @@
 import {ActionType} from '../util/const';
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {APIRoute} from '../util/route';
-import {adaptOfferToClient} from '../util/common';
+import {adaptOfferToClient, adaptUserToClient} from '../util/common';
 
 export const fetchOffers = createAsyncThunk(ActionType.FETCH_OFFERS, async (_, {extra: api}) => {
   const response = await api.get(APIRoute.OFFERS);
@@ -22,5 +22,5 @@ export const login = createAsyncThunk(ActionType.LOGIN, async (payload, {extra: 
   const {login: email, password} = payload;
 
   const response = await api.post(APIRoute.LOGIN, {email, password});
-  return response.data;
+  return adaptUserToClient(response.data);
 });
