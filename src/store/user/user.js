@@ -27,14 +27,16 @@ const user = createSlice({
     [checkAuth.pending]: (state) => {
       state.authLoadingState.status = StoreStatus.LOADING;
     },
-    [checkAuth.fulfilled]: (state) => {
+    [checkAuth.fulfilled]: (state, action) => {
       state.authorizationStatus = AuthorizationStatus.AUTH;
       state.authLoadingState.status = StoreStatus.SUCCEEDED;
+      state.user = action.payload;
     },
     [checkAuth.rejected]: (state, action) => {
       state.authLoadingState.status = StoreStatus.FAILED;
       state.authLoadingState.error = action.error.message;
       state.authorizationStatus = AuthorizationStatus.NO_AUTH;
+      state.user = null;
     },
     [login.pending]: (state) => {
       state.loginLoadingState.status = StoreStatus.LOADING;

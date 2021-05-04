@@ -16,7 +16,7 @@ export const fetchFavorites = createAsyncThunk(ActionType.FETCH_FAVORITES, async
 
 export const checkAuth = createAsyncThunk(ActionType.CHECK_AUTH, async (_, {extra: api}) => {
   const response = await api.get(APIRoute.LOGIN);
-  return response.data;
+  return adaptUserToClient(response.data);
 });
 
 export const login = createAsyncThunk(ActionType.LOGIN, async (payload, {dispatch, _, extra: api}) => {
