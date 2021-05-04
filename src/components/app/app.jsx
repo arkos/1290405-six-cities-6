@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from '../../browser-history';
 import {AppRoute, getOfferUrl} from '../../util/route';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
@@ -10,7 +11,7 @@ import NotFound from '../not-found/not-found';
 
 const App = ({offersCount}) => {
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main offersCount={offersCount} />
