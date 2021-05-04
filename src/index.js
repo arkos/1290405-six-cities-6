@@ -8,6 +8,7 @@ import App from "./components/app/app";
 import {setAuthorization} from './store/user/user';
 import {AuthorizationStatus} from './util/const';
 import {checkAuth} from './store/api-actions';
+import {redirect} from './store/middlewares/redirect';
 
 const OFFERS_COUNT = 2;
 
@@ -23,6 +24,7 @@ const store = configureStore({
         extraArgument: api
       }
     })
+    .concat(redirect)
 });
 
 store.dispatch(checkAuth());
