@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from 'react-router';
 import {Link} from 'react-router-dom';
 import {login} from '../../store/api-actions';
-import {selectIsLoggedIn} from '../../store/selectors';
+import {selectIsLoggedIn, selectIsLoggingIn} from '../../store/selectors';
 import {AppRoute} from '../../util/route';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 
@@ -11,6 +11,8 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const isLoggingIn = useSelector(selectIsLoggingIn);
 
   const [userForm, setUserForm] = useState({
     email: ``,
@@ -36,6 +38,10 @@ const SignIn = () => {
   if (isLoggedIn) {
     return <Redirect to={AppRoute.ROOT}/>;
   }
+
+  const disabledSubmitButton = isLoggingIn ? `disabled` : ``;
+
+  const labelSubmitButton = isLoggingIn ? `Signing in...` : `Sign in`;
 
   return (
     <div className="page page--gray page--login">
@@ -65,7 +71,7 @@ const SignIn = () => {
                 <label className="visually-hidden">Password</label>
                 <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" onChange={handleInputChange}/>
               </div>
-              <button className="login__submit form__submit button" type="submit" onClick={handleFormSubmit}>Sign in</button>
+              <button className="login__submit form__submit button" type="submit" onClick={handleFormSubmit} disabled={disabledSubmitButton}>{labelSubmitButton}</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
