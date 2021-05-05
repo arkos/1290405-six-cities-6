@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from 'react-router';
+import {Link} from 'react-router-dom';
 import {login} from '../../store/api-actions';
 import {selectIsLoggedIn} from '../../store/selectors';
 import {AppRoute} from '../../util/route';
@@ -42,9 +43,9 @@ const SignIn = () => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link className="header__logo-link" to={AppRoute.ROOT}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              </Link>
             </div>
             <SignInIndicator />
           </div>
