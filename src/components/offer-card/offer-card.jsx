@@ -1,18 +1,19 @@
 import React from 'react';
 import {getRoomName} from '../../util/common';
+import PropTypes from 'prop-types';
 import offerProp from './offer.prop';
 
 const MAX_STARS_COUNT = 5;
 
-const OfferCard = ({offer}) => {
-  const {price, title, images, isPremium, rating, type} = offer;
+const OfferCard = ({offer, onEnter, onLeave}) => {
+  const {price, title, images, isPremium, rating, type, id} = offer;
 
   const [apartmentImage] = images;
 
   const ratingPercent = Math.round(rating) / MAX_STARS_COUNT * 100;
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" onMouseEnter={() => onEnter(id)} onMouseLeave={() => onLeave(id)}>
       {isPremium && <div className="place-card__mark">
         <span>Premium</span>
       </div>}
@@ -50,7 +51,9 @@ const OfferCard = ({offer}) => {
 };
 
 OfferCard.propTypes = {
-  offer: offerProp
+  offer: offerProp,
+  onEnter: PropTypes.func.isRequired,
+  onLeave: PropTypes.func.isRequired
 };
 
 export default OfferCard;
