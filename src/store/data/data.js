@@ -48,6 +48,9 @@ const data = createSlice({
 });
 
 const {reducer} = data;
-const {selectAll: selectAllOffers} = adapter.getSelectors((state) => state.DATA);
+const {
+  selectAll: selectAllOffers,
+  selectById: selectOfferById
+} = adapter.getSelectors((state) => state.DATA);
 
-export {reducer as data, selectAllOffers};
+export {reducer as data, selectAllOffers, selectOfferById};
