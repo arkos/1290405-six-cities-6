@@ -2,6 +2,8 @@ import React from 'react';
 import {getRoomName} from '../../util/common';
 import PropTypes from 'prop-types';
 import offerProp from './offer.prop';
+import {Link} from 'react-router-dom';
+import {getOfferUrl} from '../../util/route';
 
 const MAX_STARS_COUNT = 5;
 
@@ -18,9 +20,9 @@ const OfferCard = ({offer, onEnter, onLeave}) => {
         <span>Premium</span>
       </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={getOfferUrl(id)}>
           <img className="place-card__image" src={apartmentImage} width="260" height="200" alt={title} />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -42,7 +44,7 @@ const OfferCard = ({offer, onEnter, onLeave}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={getOfferUrl(id)}>{title}</Link>
         </h2>
         <p className="place-card__type">{getRoomName(type)}</p>
       </div>
