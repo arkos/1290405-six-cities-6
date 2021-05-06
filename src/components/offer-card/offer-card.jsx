@@ -8,11 +8,14 @@ import {getOfferUrl} from '../../util/route';
 const MAX_STARS_COUNT = 5;
 
 const OfferCard = ({offer, onEnter, onLeave}) => {
-  const {price, title, images, isPremium, rating, type, id} = offer;
+  const {price, title, images, isPremium, isFavorite, rating, type, id} = offer;
 
   const [apartmentImage] = images;
 
   const ratingPercent = Math.round(rating) / MAX_STARS_COUNT * 100;
+
+  const favoriteClassName = isFavorite ? `place-card__bookmark-button--active` : ``;
+  const favoriteDescription = isFavorite ? `In bookmarks` : `To bookmarks`;
 
   return (
     <article className="cities__place-card place-card" onMouseEnter={() => onEnter(id)} onMouseLeave={() => onLeave(id)}>
@@ -30,11 +33,11 @@ const OfferCard = ({offer, onEnter, onLeave}) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={`place-card__bookmark-button button ${favoriteClassName}`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">{favoriteDescription}</span>
           </button>
         </div>
         <div className="place-card__rating rating">

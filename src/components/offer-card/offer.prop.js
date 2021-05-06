@@ -9,6 +9,7 @@ export default PropTypes.shape({
   title: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(PropTypes.string.isRequired),
   isPremium: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   rating: (props, propName, componentName) => {
     if (typeof (props[propName]) === `number` && props[propName] > RATING_MIN && props[propName] <= RATING_MAX) {
       return null;
