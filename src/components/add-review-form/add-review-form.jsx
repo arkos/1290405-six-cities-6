@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const REVIEW_MIN_CHARS = 50;
 const REVIEW_MAX_CHARS = 300;
@@ -10,6 +10,13 @@ const AddReviewForm = () => {
     rating: ``
   });
 
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    const isValid = validateForm();
+    setIsFormValid(validateForm());
+  }, [reviewForm.review, reviewForm.rating]);
+
   const handleInputChange = (evt) => {
     if (evt.target.tagName !== `TEXTAREA` && evt.target.tagName !== `INPUT`) {
       return;
@@ -20,9 +27,12 @@ const AddReviewForm = () => {
   };
 
   const validateReview = () => {
-    return reviewForm.review.length > REVIEW_MIN_CHARS && reviewForm.review.length <= REVIEW_MAX_CHARS;
+    return reviewForm.review.length >= REVIEW_MIN_CHARS && reviewForm.review.length <= REVIEW_MAX_CHARS;
   };
 
+  const validateRating = () => reviewForm.rating !== ``;
+
+  const validateForm = () => validateReview() && validateRating();
 
   return (
     <form className="reviews__form form" action="#" method="post" onChange={handleInputChange}>
@@ -68,7 +78,7 @@ const AddReviewForm = () => {
         <p className="reviews__help">
                       To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isFormValid ? `` : `disabled`}>Submit</button>
       </div>
     </form>
   );
