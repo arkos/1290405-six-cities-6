@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import PropTypes from 'prop-types';
+import mapProp from './map.prop';
 import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
@@ -59,5 +59,7 @@ const Map = ({city, points}) => {
     <div id="map" style={{height: `500px`}} ref={mapRef}></div>
   );
 };
+
+Map.propTypes = mapProp;
 
 export default Map;
