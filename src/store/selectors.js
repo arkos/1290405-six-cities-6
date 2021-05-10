@@ -27,16 +27,25 @@ const selectLoggedInUser = (state) => state.USER.user;
 
 const selectFavoritesStatus = (state) => state.DATA.favoritesLoadingState;
 
+const tempFilter = () => `Amsterdam`;
+
+const selectOffersByCity = createSelector(
+    [selectAllOffers, tempFilter],
+    (offers, city) => offers.filter((offer) => offer.city.name === city)
+);
+
 const selectOffersByLimit = createSelector(
-    [selectAllOffers],
+    [selectOffersByCity],
     (offers) => offers.slice(0, MAX_OFFERS_COUNT)
 );
+
 
 export {
   selectOffersByLimit,
   selectIsLoggedIn,
   selectIsLoggingIn,
   selectIsFavorite,
+  selectOffersByCity,
   selectOffersStatus,
   selectFavoritesStatus,
   selectAuthStatus,
