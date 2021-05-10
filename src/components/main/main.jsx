@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+import Map from '../map/map';
 import {StoreStatus} from '../../util/const';
 import {fetchFavorites, fetchOffers} from '../../store/api-actions';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectFavoritesStatus, selectOffersByLimit, selectOffersStatus} from '../../store/selectors';
+import {selectFavoritesStatus, selectOffersByLimit, selectOffersStatus, selectOffersByCity} from '../../store/selectors';
 import OfferList from '../offer-list/offer-list';
 import Loading from '../loading/loading';
 import {Link} from 'react-router-dom';
@@ -12,6 +13,19 @@ import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 
 const Main = () => {
   const offers = useSelector(selectOffersByLimit);
+
+  const cityLocation = {
+    lat: 52.37454,
+    lng: 4.897976,
+    zoom: 13
+  };
+
+  const points = [
+    {lat: 52.3909553943508, lng: 4.85309666406198},
+    {lat: 52.369553943508, lng: 4.85309666406198},
+    {lat: 52.3909553943508, lng: 4.929309666406198},
+    {lat: 52.3809553943508, lng: 4.939309666406198}
+  ];
 
   const dispatch = useDispatch();
 
@@ -115,7 +129,9 @@ const Main = () => {
               <OfferList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={cityLocation} points={points} />
+              </section>
             </div>
           </div>
         </div>
