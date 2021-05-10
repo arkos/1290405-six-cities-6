@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import mapProp from './map.prop';
 import leaflet from 'leaflet';
-import "leaflet/dist/leaflet.css";
+import 'leaflet/dist/leaflet.css';
 
 const iconConfig = {
   ICON_WIDTH: 27,
@@ -23,8 +23,7 @@ const Map = ({city, points}) => {
         lat: city.lat,
         lng: city.lng
       },
-      zoom: city.zoom,
-      marker: true
+      zoom: city.zoom
     });
 
     leaflet
@@ -56,7 +55,7 @@ const Map = ({city, points}) => {
   }, []);
 
   return (
-    <div id="map" style={{height: `500px`}} ref={mapRef}></div>
+    <div id="map" style={{height: `500px`}}></div>
   );
 };
 
