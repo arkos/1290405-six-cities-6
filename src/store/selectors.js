@@ -34,11 +34,29 @@ const selectOffersByCity = createSelector(
     (offers, city) => offers.filter((offer) => offer.city.name === city)
 );
 
+const selectCityPoints = createSelector(
+    [selectOffersByCity],
+    (cityOffers) => cityOffers.map((cityOffer) => (
+      {
+        lat: cityOffer.location.latitude,
+        lng: cityOffer.location.longitude,
+        title: cityOffer.title
+      }
+    ))
+);
+
+const selectCityByName = createSelector(
+    [selectAllOffers, tempFilter],
+    (offers, city) => {
+      const offerByCityName = offers.find((offer) => offer.city.name === city);
+      return offerByCityName && offerByCityName.city;
+    }
+);
+
 const selectOffersByLimit = createSelector(
     [selectOffersByCity],
     (offers) => offers.slice(0, MAX_OFFERS_COUNT)
 );
-
 
 export {
   selectOffersByLimit,
@@ -46,6 +64,8 @@ export {
   selectIsLoggingIn,
   selectIsFavorite,
   selectOffersByCity,
+  selectCityByName,
+  selectCityPoints,
   selectOffersStatus,
   selectFavoritesStatus,
   selectAuthStatus,
