@@ -59,7 +59,7 @@ const Map = ({city, points}) => {
   }, []);
 
   return (
-    <div id="map" style={{height: `500px`}}></div>
+    <div id="map" style={{height: `100%`}}></div>
   );
 };
 
