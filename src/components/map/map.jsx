@@ -17,13 +17,17 @@ const leafletConfig = {
 const Map = ({city, points}) => {
   const mapRef = useRef();
 
+  const {location} = city || {};
+
+  const {latitude: lat = 0, longitude: lng = 0, zoom = 0} = location || {};
+
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat: city.lat,
-        lng: city.lng
+        lat,
+        lng
       },
-      zoom: city.zoom
+      zoom
     });
 
     leaflet
