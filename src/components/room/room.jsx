@@ -1,11 +1,21 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {Link, useParams} from 'react-router-dom';
+import {selectOfferById} from '../../store/data/data';
 import {AppRoute} from '../../util/route';
 import AddReviewForm from '../add-review-form/add-review-form';
+import NotFound from '../not-found/not-found';
 import ReviewsList from '../reviews-list/reviews-list';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 
 const Room = () => {
+  const {id: offerId} = useParams();
+
+  const offer = useSelector((state) => selectOfferById(state, offerId));
+
+  if (!offer) {
+    return <NotFound />;
+  }
 
   const reviews = [
     {
