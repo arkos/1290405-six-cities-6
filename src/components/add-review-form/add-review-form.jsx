@@ -13,7 +13,6 @@ const AddReviewForm = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    const isValid = validateForm();
     setIsFormValid(validateForm());
   }, [reviewForm.review, reviewForm.rating]);
 
