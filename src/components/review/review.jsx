@@ -1,12 +1,18 @@
 import React from 'react';
 import reviewProp from '../review/review.prop';
 import {MAX_STARS_COUNT} from '../../util/const';
+import dayjs from 'dayjs';
 
 const Review = ({review}) => {
   const {comment, date, user, rating} = review;
   const {avatarUrl, name} = user;
 
   const ratingPercent = Math.round(rating) / MAX_STARS_COUNT * 100;
+
+  const dateJs = dayjs(date);
+
+  const isoDate = dateJs.format(`YYYY-MM-DD`);
+  const localeDate = dateJs.format(`MMMM YYYY`);
 
   return (
     <li className="reviews__item">
@@ -28,7 +34,7 @@ const Review = ({review}) => {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={isoDate}>{localeDate}</time>
       </div>
     </li>
   );
