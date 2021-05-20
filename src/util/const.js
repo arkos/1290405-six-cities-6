@@ -19,3 +19,6 @@ export const AuthorizationStatus = {
 };
 
 export const MAX_OFFERS_COUNT = 8;
+
+export const MAX_STARS_COUNT = 5;
+

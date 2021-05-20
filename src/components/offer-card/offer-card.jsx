@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import offerProp from './offer.prop';
 import {Link} from 'react-router-dom';
 import {getOfferUrl} from '../../util/route';
-
-const MAX_STARS_COUNT = 5;
+import {MAX_STARS_COUNT} from '../../util/const';
 
 const OfferCard = ({offer, onEnter, onLeave}) => {
   const {price, title, images, isPremium, isFavorite, rating, type, id} = offer;
