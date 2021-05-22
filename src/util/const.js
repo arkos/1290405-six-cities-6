@@ -8,6 +8,7 @@ export const StoreStatus = {
 export const ActionType = {
   FETCH_OFFERS: `data/fetchOffers`,
   FETCH_FAVORITES: `data/fetchFavorites`,
+  FETCH_REVIEWS: `data/fetchReviews`,
   CHECK_AUTH: `user/checkAuth`,
   LOGIN: `user/login`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`

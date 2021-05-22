@@ -8,7 +8,10 @@ export const AppRoute = {
 export const APIRoute = {
   OFFERS: `/hotels`,
   FAVORITES: `/favorite`,
+  REVIEWS: `/comments`,
   LOGIN: `/login`
 };
 
 export const getOfferUrl = (id) => `${AppRoute.ROOM}/${id}`;
+
+export const getReviewsUrl = (offerId) => `${APIRoute.REVIEWS}/${offerId}`;
