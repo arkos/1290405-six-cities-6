@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import reviewProp from '../review/review.prop';
 import Review from '../review/review';
 
-const ReviewsList = ({reviews}) => {
+const ReviewsList = ({reviews = []}) => {
   return (
     <>
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>

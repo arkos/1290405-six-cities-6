@@ -1,48 +1,39 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
+import {fetchReviews} from '../../store/api-actions';
 import {selectOfferById} from '../../store/data/data';
+import {selectReviewsStatus} from '../../store/selectors';
+import {StoreStatus} from '../../util/const';
 import {AppRoute} from '../../util/route';
 import AddReviewForm from '../add-review-form/add-review-form';
 import NotFound from '../not-found/not-found';
 import ReviewsList from '../reviews-list/reviews-list';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
+import Loading from '../loading/loading';
 
 const Room = () => {
   const {id: offerId} = useParams();
 
+  const dispatch = useDispatch();
+
   const offer = useSelector((state) => selectOfferById(state, offerId));
+
+  const reviewsLoadingState = useSelector(selectReviewsStatus);
+
+  useEffect(() => {
+    dispatch(fetchReviews(offerId));
+  }, []);
 
   if (!offer) {
     return <NotFound />;
   }
 
-  const reviews = [
-    {
-      "id": 1,
-      "user": {
-        "id": 18,
-        "isPro": true,
-        "name": `Sophie`,
-        "avatarUrl": `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/9.jpg`
-      },
-      "rating": 5,
-      "comment": `The deluxe room was a quite comfortable one with all the adequate facilities. The only thing that made me feel uncomfortable was the rude behavior of an impolite staff at the reception desk.`,
-      "date": `2021-02-23T08:04:28.647Z`
-    },
-    {
-      "id": 2,
-      "user": {
-        "id": 15,
-        "isPro": false,
-        "name": `Kendall`,
-        "avatarUrl": `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/6.jpg`
-      },
-      "rating": 3,
-      "comment": `The house is very good, very happy, hygienic and simple living conditions around it are also very good. I hope to have the opportunity to come back. Thank you.`,
-      "date": `2021-02-23T08:04:28.647Z`
-    }
-  ];
+  if (reviewsLoadingState.status === StoreStatus.LOADING) {
+    return <Loading title={`Loading previews...`} />;
+  }
+
+  const {reviews} = offer;
 
   return (
     <div className="page">
