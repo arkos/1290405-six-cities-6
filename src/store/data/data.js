@@ -1,6 +1,6 @@
 import {createSlice, createEntityAdapter} from '@reduxjs/toolkit';
 import {StoreStatus} from '../../util/const';
-import {fetchFavorites, fetchOffers} from '../api-actions';
+import {fetchFavorites, fetchOffers, fetchReviews} from '../api-actions';
 
 const adapter = createEntityAdapter();
 
@@ -10,6 +10,10 @@ const initialState = adapter.getInitialState({
     error: null
   },
   favoritesLoadingState: {
+    status: StoreStatus.IDLE,
+    error: null
+  },
+  reviewsLoadingState: {
     status: StoreStatus.IDLE,
     error: null
   }
@@ -43,6 +47,19 @@ const data = createSlice({
     [fetchFavorites.rejected]: (state, action) => {
       state.favoritesLoadingState.status = StoreStatus.FAILED;
       state.favoritesLoadingState.error = action.error.message;
+    },
+    [fetchReviews.pending]: (state) => {
+      state.reviewsLoadingState.status = StoreStatus.LOADING;
+    },
+    [fetchReviews.fulfilled]: (state, action) => {
+      state.reviewsLoadingState.status = StoreStatus.SUCCEEDED;
+
+      const {reviews, offerId} = action.payload;
+      state.entities[offerId].reviews = reviews;
+    },
+    [fetchReviews.rejected]: (state, action) => {
+      state.reviewsLoadingState.status = StoreStatus.FAILED;
+      state.reviewsLoadingState.error = action.error.message;
     }
   }
 });
