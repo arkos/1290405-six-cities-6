@@ -1,7 +1,7 @@
 import {ActionType} from '../util/const';
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {APIRoute, AppRoute} from '../util/route';
-import {adaptOfferToClient, adaptUserToClient} from '../util/common';
+import {APIRoute, AppRoute, getReviewsUrl} from '../util/route';
+import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../util/common';
 import {redirectToRoute} from './actions';
 
 export const fetchOffers = createAsyncThunk(ActionType.FETCH_OFFERS, async (_, {extra: api}) => {
@@ -12,6 +12,14 @@ export const fetchOffers = createAsyncThunk(ActionType.FETCH_OFFERS, async (_, {
 export const fetchFavorites = createAsyncThunk(ActionType.FETCH_FAVORITES, async (_, {extra: api}) => {
   const response = await api.get(APIRoute.FAVORITES);
   return response.data.map(adaptOfferToClient);
+});
+
+export const fetchReviews = createAsyncThunk(ActionType.FETCH_REVIEWS, async (offerId, {extra: api}) => {
+  const response = await api.get(getReviewsUrl(offerId));
+  return {
+    reviews: response.data.map(adaptReviewToClient),
+    offerId
+  };
 });
 
 export const checkAuth = createAsyncThunk(ActionType.CHECK_AUTH, async (_, {extra: api}) => {
