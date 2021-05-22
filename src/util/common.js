@@ -42,3 +42,17 @@ export const adaptUserToClient = (user) => {
 
   return adaptedUser;
 };
+
+export const adaptReviewToClient = (review) => {
+  const adaptedReview = Object.assign({}, review, {
+    user: Object.assign({}, review.user, {
+      avatarUrl: review.user.avatar_url,
+      isPro: review.user.is_pro
+    })
+  });
+
+  delete adaptedReview.user.avatar_url;
+  delete adaptedReview.user.is_pro;
+
+  return adaptedReview;
+};
