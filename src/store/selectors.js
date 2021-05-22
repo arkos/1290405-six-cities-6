@@ -13,6 +13,11 @@ const selectIsFavorite = createSelector(
     (offer) => offer.isFavorite
 );
 
+const selectOfferReviews = createSelector(
+    [selectOfferById],
+    (offer) => offer.reviews
+);
+
 const selectIsLoggingIn = createSelector(
     [selectLoginLoadingStatus],
     (loginLoadingStatus) => loginLoadingStatus.status === StoreStatus.LOADING
@@ -26,6 +31,8 @@ const selectIsLoggedIn = createSelector(
 const selectLoggedInUser = (state) => state.USER.user;
 
 const selectFavoritesStatus = (state) => state.DATA.favoritesLoadingState;
+
+const selectReviewsStatus = (state) => state.DATA.reviewsLoadingState;
 
 const tempFilter = () => `Amsterdam`;
 
@@ -66,8 +73,10 @@ export {
   selectOffersByCity,
   selectCityByName,
   selectCityPoints,
+  selectOfferReviews,
   selectOffersStatus,
   selectFavoritesStatus,
+  selectReviewsStatus,
   selectAuthStatus,
   selectLoggedInUser,
 };
