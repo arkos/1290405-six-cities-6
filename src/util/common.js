@@ -56,3 +56,8 @@ export const adaptReviewToClient = (review) => {
 
   return adaptedReview;
 };
+
+export const getUniqueCities = (offers) => {
+  const cities = offers.map((offer) => offer.city.name);
+  return [...new Set(cities)];
+};
