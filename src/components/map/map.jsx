@@ -56,7 +56,7 @@ const Map = ({city, points}) => {
     return () => {
       mapRef.current.remove();
     };
-  }, []);
+  }, [city, points]);
 
   return (
     <div id="map" style={{height: `100%`}}></div>
