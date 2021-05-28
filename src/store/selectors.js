@@ -34,15 +34,15 @@ const selectFavoritesStatus = (state) => state.DATA.favoritesLoadingState;
 
 const selectReviewsStatus = (state) => state.DATA.reviewsLoadingState;
 
-const tempFilter = () => `Amsterdam`;
+const selectCurrentFilter = (state) => state.PROCESS.filter;
 
-const selectOffersByCity = createSelector(
-    [selectAllOffers, tempFilter],
+const selectOffersInCurrentCity = createSelector(
+    [selectAllOffers, selectCurrentFilter],
     (offers, city) => offers.filter((offer) => offer.city.name === city)
 );
 
-const selectCityPoints = createSelector(
-    [selectOffersByCity],
+const selectLocationsInCurrentCity = createSelector(
+    [selectOffersInCurrentCity],
     (cityOffers) => cityOffers.map((cityOffer) => (
       {
         lat: cityOffer.location.latitude,
@@ -52,16 +52,16 @@ const selectCityPoints = createSelector(
     ))
 );
 
-const selectCityByName = createSelector(
-    [selectAllOffers, tempFilter],
-    (offers, city) => {
-      const offerByCityName = offers.find((offer) => offer.city.name === city);
-      return offerByCityName && offerByCityName.city;
+const selectCurrentCity = createSelector(
+    [selectOffersInCurrentCity],
+    (offers) => {
+      const [offerInCurrentCity] = offers;
+      return offerInCurrentCity && offerInCurrentCity.city;
     }
 );
 
 const selectOffersByLimit = createSelector(
-    [selectOffersByCity],
+    [selectOffersInCurrentCity],
     (offers) => offers.slice(0, MAX_OFFERS_COUNT)
 );
 
@@ -70,13 +70,14 @@ export {
   selectIsLoggedIn,
   selectIsLoggingIn,
   selectIsFavorite,
-  selectOffersByCity,
-  selectCityByName,
-  selectCityPoints,
+  selectOffersInCurrentCity,
+  selectCurrentCity,
+  selectLocationsInCurrentCity,
   selectOfferReviews,
   selectOffersStatus,
   selectFavoritesStatus,
   selectReviewsStatus,
   selectAuthStatus,
   selectLoggedInUser,
+  selectCurrentFilter
 };
