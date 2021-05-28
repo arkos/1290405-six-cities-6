@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const process = createSlice({
   name: `process`,
   initialState: {
-    filter: null
+    filter: `Amsterdam`
   },
   reducers: {
     changeFilter: (state, action) => {
@@ -12,6 +12,7 @@ const process = createSlice({
   }
 });
 
-export const {changeFilter} = process;
+const {reducer} = process;
+export const {changeFilter} = process.actions;
 
-export default process.reducer;
+export {reducer as process};
