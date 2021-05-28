@@ -4,13 +4,17 @@ import Map from '../map/map';
 import {StoreStatus} from '../../util/const';
 import {fetchFavorites, fetchOffers} from '../../store/api-actions';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectFavoritesStatus, selectOffersByLimit, selectOffersStatus, selectCityByName, selectCityPoints} from '../../store/selectors';
+import {selectFavoritesStatus, selectOffersStatus, selectCurrentCity, selectLocationsInCurrentCity, selectOffersInCurrentCity} from '../../store/selectors';
 import OfferList from '../offer-list/offer-list';
 import Loading from '../loading/loading';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../util/route';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import SortMenu from '../sort-menu/sort-menu';
+import {selectAllOffers} from '../../store/data/data';
+import Tabs from '../tabs/tabs';
+import {getUniqueCities} from '../../util/common';
+import {changeFilter} from '../../store/process/process';
 
 const menuItems = [
   {label: `Popular`, value: `popular`, active: true},
@@ -20,17 +24,19 @@ const menuItems = [
 ];
 
 const Main = () => {
-  const offers = useSelector(selectOffersByLimit);
-
-  const selectedCity = useSelector(selectCityByName);
-
-  const points = useSelector(selectCityPoints);
-
   const dispatch = useDispatch();
+
+  const allOffers = useSelector(selectAllOffers);
+
+  const offersInCurrentCity = useSelector(selectOffersInCurrentCity);
 
   const offersLoadingState = useSelector((state) => selectOffersStatus(state));
 
   const favoritesLoadingState = useSelector((state) => selectFavoritesStatus(state));
+
+  const cities = getUniqueCities(allOffers);
+  const activeCity = useSelector(selectCurrentCity);
+  const points = useSelector(selectLocationsInCurrentCity);
 
   useEffect(() => {
     if (offersLoadingState.status === StoreStatus.IDLE) {
@@ -58,6 +64,10 @@ const Main = () => {
     });
   };
 
+  const handleTabChange = (activeItem) => {
+    dispatch(changeFilter(activeItem));
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -75,53 +85,18 @@ const Main = () => {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <Tabs items={cities} onTabChange={handleTabChange} activeItem={activeCity && activeCity.name} />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{`${offersInCurrentCity && offersInCurrentCity.length} places to stay in ${ activeCity && activeCity.name}`}</b>
               <SortMenu onMenuClick={() => {}} onMenuSelect={handleMenuSelect} items={menuItems}/>
-              <OfferList offers={offers}/>
+              <OfferList offers={offersInCurrentCity}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={selectedCity} points={points} />
+                <Map city={activeCity} points={points} />
               </section>
             </div>
           </div>
