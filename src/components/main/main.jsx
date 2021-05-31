@@ -90,7 +90,7 @@ const Main = () => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{`${offersInCurrentCity && offersInCurrentCity.length} places to stay in ${activeCity && activeCity.name}`}</b>
+              <b className="places__found">{`${offersInCurrentCity && offersInCurrentCity.length} places to stay in ${ activeCity && activeCity.name}`}</b>
               <SortMenu onMenuClick={() => {}} onMenuSelect={handleMenuSelect} items={menuItems}/>
               <OfferList offers={offersInCurrentCity}/>
             </section>
