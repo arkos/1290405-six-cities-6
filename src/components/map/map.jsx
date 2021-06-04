@@ -57,7 +57,20 @@ const Map = ({city, points, activePoint}) => {
     return () => {
       mapRef.current.remove();
     };
-  }, [city, points, activePoint]);
+  }, [city, points]);
+
+  useEffect(() => {
+    mapRef.current.eachLayer((layer) => {
+      if (layer.options.icon) {
+        const pointLocation = layer.getLatLng();
+        const customIcon = leaflet.icon({
+          iconUrl: activePoint && activePoint.lat === pointLocation.lat && activePoint.lng === pointLocation.lng ? iconConfig.ICON_ACTIVE_URL : iconConfig.ICON_URL,
+          iconSize: [iconConfig.ICON_WIDTH, iconConfig.ICON_HEIGHT]
+        });
+        layer.setIcon(customIcon);
+      }
+    });
+  }, [activePoint]);
 
   return (
     <div id="map" style={{height: `100%`}}></div>
