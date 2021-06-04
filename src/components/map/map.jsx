@@ -6,7 +6,8 @@ import 'leaflet/dist/leaflet.css';
 const iconConfig = {
   ICON_WIDTH: 27,
   ICON_HEIGHT: 39,
-  ICON_URL: `./img/pin.svg`
+  ICON_URL: `./img/pin.svg`,
+  ICON_ACTIVE_URL: `./img/pin-active.svg`
 };
 
 const leafletConfig = {
@@ -14,7 +15,7 @@ const leafletConfig = {
   ATTRIBUTION: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
 };
 
-const Map = ({city, points}) => {
+const Map = ({city, points, activePoint}) => {
   const mapRef = useRef();
 
   const {location} = city || {};
@@ -38,7 +39,7 @@ const Map = ({city, points}) => {
 
     points.forEach((point) => {
       const customIcon = leaflet.icon({
-        iconUrl: iconConfig.ICON_URL,
+        iconUrl: activePoint && activePoint.lat === point.lat && activePoint.lng === point.lng ? iconConfig.ICON_ACTIVE_URL : iconConfig.ICON_URL,
         iconSize: [iconConfig.ICON_WIDTH, iconConfig.ICON_HEIGHT]
       });
 
@@ -56,7 +57,7 @@ const Map = ({city, points}) => {
     return () => {
       mapRef.current.remove();
     };
-  }, [city, points]);
+  }, [city, points, activePoint]);
 
   return (
     <div id="map" style={{height: `100%`}}></div>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Map from '../map/map';
 import {StoreStatus} from '../../util/const';
@@ -25,6 +25,8 @@ const menuItems = [
 
 const Main = () => {
   const dispatch = useDispatch();
+
+  const [activeOffer, setActiveOffer] = useState(null);
 
   const allOffers = useSelector(selectAllOffers);
 
@@ -68,6 +70,10 @@ const Main = () => {
     dispatch(changeFilter(activeItem));
   };
 
+  const handleActiveOfferChange = (offer) => {
+    setActiveOffer(offer);
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -92,11 +98,14 @@ const Main = () => {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{`${offersInCurrentCity && offersInCurrentCity.length} places to stay in ${ activeCity && activeCity.name}`}</b>
               <SortMenu onMenuClick={() => {}} onMenuSelect={handleMenuSelect} items={menuItems}/>
-              <OfferList offers={offersInCurrentCity}/>
+              <OfferList offers={offersInCurrentCity} onActiveCardChange={handleActiveOfferChange}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={activeCity} points={points} />
+                <Map city={activeCity} points={points} activePoint={activeOffer &&
+                  activeOffer.location &&
+                  {lat: activeOffer.location.latitude, lng: activeOffer.location.longitude}}
+                />
               </section>
             </div>
           </div>

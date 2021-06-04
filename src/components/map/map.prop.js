@@ -12,5 +12,9 @@ export default {
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired
-  }))
+  })),
+  activePoint: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired
+  })
 };
