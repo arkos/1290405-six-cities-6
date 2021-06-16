@@ -1,16 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import {fetchReviews} from '../../store/api-actions';
 import {selectOfferById} from '../../store/data/data';
 import {selectReviewsStatus} from '../../store/selectors';
 import {StoreStatus} from '../../util/const';
-import {AppRoute} from '../../util/route';
+import {AppRoute, getNearbyOffersUrl} from '../../util/route';
 import AddReviewForm from '../add-review-form/add-review-form';
 import NotFound from '../not-found/not-found';
 import ReviewsList from '../reviews-list/reviews-list';
 import SignInIndicator from '../sign-in-indicator/sign-in-indicator';
 import Loading from '../loading/loading';
+import {api} from '../../index';
 
 const Room = () => {
   const {id: offerId} = useParams();
@@ -21,9 +22,18 @@ const Room = () => {
 
   const reviewsLoadingState = useSelector(selectReviewsStatus);
 
+  const [nearbyOffers, setNearbyOffers] = useState({});
+
   useEffect(() => {
     dispatch(fetchReviews(offerId));
-  }, []);
+
+    const fetchNearbyOffers = async () => {
+      const response = await api.get(getNearbyOffersUrl(offerId));
+      setNearbyOffers(response.data);
+    };
+
+    fetchNearbyOffers();
+  }, [offerId]);
 
   if (!offer) {
     return <NotFound />;

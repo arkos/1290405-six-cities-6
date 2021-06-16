@@ -35,3 +35,5 @@ ReactDOM.render(
     </Provider>,
     document.querySelector(`#root`)
 );
+
+export {api};

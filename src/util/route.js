@@ -15,3 +15,5 @@ export const APIRoute = {
 export const getOfferUrl = (id) => `${AppRoute.ROOM}/${id}`;
 
 export const getReviewsUrl = (offerId) => `${APIRoute.REVIEWS}/${offerId}`;
+
+export const getNearbyOffersUrl = (offerId) => `${APIRoute.OFFERS}/${offerId}/nearby`;
