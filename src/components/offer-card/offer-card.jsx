@@ -17,7 +17,7 @@ const OfferCard = ({offer, onEnter, onLeave}) => {
   const favoriteDescription = isFavorite ? `In bookmarks` : `To bookmarks`;
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={() => onEnter(id)} onMouseLeave={() => onLeave(id)}>
+    <article className="cities__property-card place-card" onMouseEnter={() => onEnter(id)} onMouseLeave={() => onLeave(id)}>
       {isPremium && <div className="place-card__mark">
         <span>Premium</span>
       </div>}

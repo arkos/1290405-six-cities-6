@@ -191,7 +191,7 @@ const Room = () => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <article className="near-places__card place-card">
+              <article className="near-places__property-card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
                     <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
@@ -223,7 +223,7 @@ const Room = () => {
                 </div>
               </article>
 
-              <article className="near-places__card place-card">
+              <article className="near-places__property-card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
                     <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image" />
@@ -255,7 +255,7 @@ const Room = () => {
                 </div>
               </article>
 
-              <article className="near-places__card place-card">
+              <article className="near-places__property-card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
                     <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image" />
