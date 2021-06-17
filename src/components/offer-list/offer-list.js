@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OfferCard from '../offer-card/offer-card';
 import offerProp from '../offer-card/offer.prop';
+import OfferCard from '../offer-card/offer-card';
 
-const OfferList = ({offers, onActiveCardChange}) => {
+
+const OfferList = ({classPrefix, offers, additionalClassName, onActiveCardChange}) => {
   const handleOfferEnter = (offer) => {
     onActiveCardChange(offer);
   };
@@ -13,14 +14,16 @@ const OfferList = ({offers, onActiveCardChange}) => {
   };
 
   return (
-    <div className="cities__properties-list places__list tabs__content">
-      {offers.map((offer) => <OfferCard key={offer.id} offer={offer} onEnter={() => handleOfferEnter(offer)} onLeave={() => handleOfferLeave(offer)} />)}
+    <div className={`${classPrefix}__properties-list places__list ${additionalClassName}`}>
+      {offers.map((offer) => <OfferCard key={offer.id} classPrefix={classPrefix} offer={offer} onEnter={() => handleOfferEnter(offer)} onLeave={() => handleOfferLeave(offer)} />)}
     </div>
   );
 };
 
 OfferList.propTypes = {
-  offers: PropTypes.arrayOf(offerProp),
+  classPrefix: PropTypes.string.isRequired,
+  offers: PropTypes.arrayOf(offerProp).isRequired,
+  additionalClassName: PropTypes.string,
   onActiveCardChange: PropTypes.func.isRequired
 };
 

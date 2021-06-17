@@ -1,15 +1,17 @@
 import React from 'react';
-import {getRoomName} from '../../util/common';
-import PropTypes from 'prop-types';
-import offerProp from './offer.prop';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {getOfferUrl} from '../../util/route';
+import {getRoomName} from '../../util/common';
 import {MAX_STARS_COUNT} from '../../util/const';
+import offerProp from '../offer-card/offer.prop';
 
-const OfferCard = ({offer, onEnter, onLeave}) => {
-  const {price, title, images, isPremium, isFavorite, rating, type, id} = offer;
 
-  const [apartmentImage] = images;
+const OfferCard = ({classPrefix, offer, onEnter, onLeave}) => {
+
+  const {isPremium, price, title, images, isFavorite, rating, type, id} = offer;
+
+  const [propertyImage] = images;
 
   const ratingPercent = Math.round(rating) / MAX_STARS_COUNT * 100;
 
@@ -17,13 +19,13 @@ const OfferCard = ({offer, onEnter, onLeave}) => {
   const favoriteDescription = isFavorite ? `In bookmarks` : `To bookmarks`;
 
   return (
-    <article className="cities__property-card place-card" onMouseEnter={() => onEnter(id)} onMouseLeave={() => onLeave(id)}>
+    <article className={`${classPrefix}__property-card place-card`} onMouseEnter={() => onEnter(id)} onMouseLeave={() => onLeave(id)}>
       {isPremium && <div className="place-card__mark">
         <span>Premium</span>
       </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${classPrefix}__image-wrapper place-card__image-wrapper`}>
         <Link to={getOfferUrl(id)}>
-          <img className="place-card__image" src={apartmentImage} width="260" height="200" alt={title} />
+          <img className="place-card__image" src={propertyImage} width="260" height="200" alt={title} />
         </Link>
       </div>
       <div className="place-card__info">
@@ -55,6 +57,7 @@ const OfferCard = ({offer, onEnter, onLeave}) => {
 };
 
 OfferCard.propTypes = {
+  classPrefix: PropTypes.string.isRequired,
   offer: offerProp,
   onEnter: PropTypes.func.isRequired,
   onLeave: PropTypes.func.isRequired

@@ -98,7 +98,7 @@ const Main = () => {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{`${offersInCurrentCity && offersInCurrentCity.length} places to stay in ${ activeCity && activeCity.name}`}</b>
               <SortMenu onMenuClick={() => {}} onMenuSelect={handleMenuSelect} items={menuItems}/>
-              <OfferList offers={offersInCurrentCity} onActiveCardChange={handleActiveOfferChange}/>
+              <OfferList classPrefix="cities" additionalClassName="tabs__content" offers={offersInCurrentCity} onActiveCardChange={handleActiveOfferChange}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
